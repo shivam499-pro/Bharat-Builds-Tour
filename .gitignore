@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+
+# Virtual environments
+venv/
+ENV/
+env/
+
+# IDE / Editor
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Data files (large)
+data/
+*.parquet
+*.tif
+*.tiff
+*.geotiff
+*.h5
+*.hdf5
+
+# Cache / binary files
+*.bin
+cache_test*.bin
+scratch_test_nodes.bin
+scratch_nodes.bin
+
+# Environment variables / secrets
+.env
+*.env
+*.key
+*.pem
+
+# Jupyter notebooks checkpoints
+.ipynb_checkpoints/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Scratch (now analysis) – not tracked
+scratch/
