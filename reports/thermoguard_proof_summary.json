@@ -1,0 +1,85 @@
+{
+  "methodology_version": "PhaseIX-2026-09-14",
+  "pilot_event_count": 100,
+  "validation_tests_passed": 38,
+  "risk_confidence_independent": true,
+  "risk_confidence_correlation": -0.225,
+  "task27_status": "PASS",
+  "task28_status": "PASS",
+  "task29_status": "PASS",
+  "sih26162_alignment": "PARTIAL ALIGNMENT",
+  "scientific_core": "PASS WITH LIMITATIONS",
+  "aws_deployment_status": "NOT YET DEPLOYED",
+  "ml_classification_status": "NOT YET READY",
+  "score_distribution": {
+    "min": 6.3,
+    "max": 49.0,
+    "mean": 26.63,
+    "median": 18.35,
+    "std": 14.2,
+    "percentiles": {
+      "p10": 12.4,
+      "p25": 13.975,
+      "p50": 18.35,
+      "p75": 42.825,
+      "p90": 44.46
+    }
+  },
+  "risk_tier_counts": {
+    "LOW": 58,
+    "MODERATE": 42,
+    "HIGH": 0,
+    "CRITICAL": 0
+  },
+  "confidence_tier_counts": {
+    "LOW": 2,
+    "MEDIUM": 47,
+    "HIGH": 51
+  },
+  "dimension_weights": {
+    "thermal_intensity_dim_A": 0.30,
+    "persistence_dim_B": 0.25,
+    "industrial_association_dim_C": 0.20,
+    "spatial_scale_dim_D": 0.10,
+    "spectral_surface_evidence_dim_E": 0.15,
+    "total_weight": 1.00
+  },
+  "observational_metrics": {
+    "total_events": 100,
+    "successfully_scored": 100,
+    "failures": 0,
+    "zero_thermal_events": 0,
+    "zero_persistence_events": 0,
+    "no_industrial_match_events": 60,
+    "zero_spatial_extent_events": 19,
+    "missing_or_zero_spectral_events": 47
+  },
+  "key_events": {
+    "strongest_representative_event": {
+      "event_id": "EVT_00963466",
+      "risk_score": 49.0,
+      "risk_tier": "MODERATE",
+      "evidence_confidence": 70.0,
+      "confidence_tier": "MEDIUM",
+      "primary_driver": "Persistence (24.2 points)",
+      "secondary_driver": "Industrial Association (15.5 points)",
+      "weakest_dimension": "Spectral / Surface Evidence (0.0 points)",
+      "recommendation": "Needs additional satellite verification"
+    },
+    "missing_evidence_demonstration_event": {
+      "event_id": "EVT_01557619",
+      "risk_score": 11.2,
+      "risk_tier": "LOW",
+      "evidence_confidence": 46.0,
+      "confidence_tier": "LOW",
+      "recommendation": "Low observed risk but insufficient evidence",
+      "missing_tags": [
+        "osm_context:no_mapped_association",
+        "dimension_E_spectral_missing",
+        "spectral_coverage:extraction_failed"
+      ],
+      "sentinel2_explanation": "Sentinel-2 scene was present but spectral feature extraction failed, so this dimension contributed 0 points. This is an evidence limitation, not evidence of absence."
+    }
+  },
+  "audit_timestamp": "2026-09-14T16:30:00Z"
+}
