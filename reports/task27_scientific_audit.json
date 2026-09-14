@@ -1,0 +1,672 @@
+{
+  "methodology_version": "PhaseIX-2026-09-14",
+  "task": "Task 27 Scientific Audit",
+  "verdict": "TASK 27 \u2014 PASS",
+  "defects": [],
+  "part_A_formula_audit": {
+    "Dimension_A_Thermal": {
+      "status": "PASS",
+      "weight": 0.3,
+      "coefficients": {
+        "frp_mean": 0.5,
+        "frp_max": 0.35,
+        "brightness_mean": 0.15
+      },
+      "anchors": {
+        "frp_mean_cap": 100.0,
+        "frp_max_cap": 500.0,
+        "bright_min": 300.0,
+        "bright_max": 370.0
+      },
+      "test_score": 0.5,
+      "expected_score": 0.5
+    },
+    "Dimension_B_Persistence": {
+      "status": "PASS",
+      "weight": 0.25,
+      "coefficients": {
+        "distinct_detection_days": 0.7,
+        "detection_count": 0.3
+      },
+      "anchors": {
+        "days_anchor": 365.0,
+        "count_anchor": 50000.0
+      },
+      "test_score": 1.0,
+      "expected_score": 1.0
+    },
+    "Dimension_C_Industrial": {
+      "status": "PASS",
+      "weight": 0.2,
+      "coefficients": {
+        "matched": 0.35,
+        "containment": 0.3,
+        "proximity_frac": 0.2,
+        "distance": 0.15
+      },
+      "anchors": {
+        "distance_buffer_m": 5000.0
+      },
+      "test_score": 0.9999999999999999,
+      "expected_score": 1.0
+    },
+    "Dimension_D_Spatial": {
+      "status": "PASS",
+      "weight": 0.1,
+      "coefficients": {
+        "spatial_scale": 1.0
+      },
+      "anchors": {
+        "area_anchor_km2": 500.0
+      },
+      "test_score": 1.0,
+      "expected_score": 1.0
+    },
+    "Dimension_E_Spectral": {
+      "status": "PASS",
+      "weight": 0.15,
+      "coefficients": {
+        "swir_anom": 0.45,
+        "ndvi_dist": 0.25,
+        "swir_ratio": 0.2,
+        "bsi": 0.1
+      },
+      "anchors": {
+        "swir_anom_baseline": 1.0,
+        "swir_anom_scale": 5.0,
+        "ndvi_threshold": 0.4,
+        "ndvi_scale": 0.6,
+        "swir_ratio_baseline": 0.5,
+        "swir_ratio_scale": 1.2,
+        "bsi_baseline": -0.5,
+        "bsi_scale": 1.0,
+        "temporal_window_days": 90.0
+      },
+      "test_score": 0.9999999999999999,
+      "expected_score": 1.0
+    },
+    "Overall_Weights_Sum": {
+      "status": "PASS",
+      "sum": 1.0,
+      "expected": 1.0
+    }
+  },
+  "part_B_monotonicity_audit": {
+    "all_passed": true,
+    "tests": {
+      "Dim_A_frp_mean": {
+        "param": "frp_mean",
+        "direction": "positive",
+        "target_metric": "thermal_dimension_score",
+        "steps_tested": 31,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_A_frp_max": {
+        "param": "frp_max",
+        "direction": "positive",
+        "target_metric": "thermal_dimension_score",
+        "steps_tested": 41,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_A_brightness_mean": {
+        "param": "brightness_mean",
+        "direction": "positive",
+        "target_metric": "thermal_dimension_score",
+        "steps_tested": 35,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_B_distinct_detection_days": {
+        "param": "distinct_detection_days",
+        "direction": "positive",
+        "target_metric": "persistence_dimension_score",
+        "steps_tested": 51,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_B_detection_count": {
+        "param": "detection_count",
+        "direction": "positive",
+        "target_metric": "persistence_dimension_score",
+        "steps_tested": 51,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_C_osm_matched_fraction": {
+        "param": "osm_matched_fraction",
+        "direction": "positive",
+        "target_metric": "industrial_dimension_score",
+        "steps_tested": 21,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_C_osm_containment_fraction": {
+        "param": "osm_containment_fraction",
+        "direction": "positive",
+        "target_metric": "industrial_dimension_score",
+        "steps_tested": 21,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_C_osm_proximity_fraction": {
+        "param": "osm_proximity_fraction",
+        "direction": "positive",
+        "target_metric": "industrial_dimension_score",
+        "steps_tested": 21,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_C_min_distance_m": {
+        "param": "min_distance_m",
+        "direction": "negative",
+        "target_metric": "industrial_dimension_score",
+        "steps_tested": 41,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_D_spatial_extent_km2": {
+        "param": "spatial_extent_km2",
+        "direction": "positive",
+        "target_metric": "spatial_dimension_score",
+        "steps_tested": 51,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_E_swir2_anomaly_ratio": {
+        "param": "swir2_anomaly_ratio",
+        "direction": "positive",
+        "target_metric": "spectral_dimension_score",
+        "steps_tested": 39,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_E_ndvi_disturbance": {
+        "param": "ndvi",
+        "direction": "positive",
+        "target_metric": "spectral_dimension_score",
+        "steps_tested": 27,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_E_swir2_swir1_ratio": {
+        "param": "swir2_swir1_ratio",
+        "direction": "positive",
+        "target_metric": "spectral_dimension_score",
+        "steps_tested": 24,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_E_bsi": {
+        "param": "bsi",
+        "direction": "positive",
+        "target_metric": "spectral_dimension_score",
+        "steps_tested": 37,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_E_scl_clear_fraction": {
+        "param": "scl_clear_fraction",
+        "direction": "positive",
+        "target_metric": "spectral_dimension_score",
+        "steps_tested": 21,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      },
+      "Dim_E_temporal_delta_days": {
+        "param": "temporal_delta_days",
+        "direction": "negative",
+        "target_metric": "spectral_dimension_score",
+        "steps_tested": 31,
+        "status": "PASS",
+        "violations_count": 0,
+        "sample_violation": null
+      }
+    }
+  },
+  "part_C_boundary_audit": {
+    "all_passed": true,
+    "cases": {
+      "all_zeroes": {
+        "status": "PASS",
+        "risk_score": 0.0,
+        "evidence_confidence": 46.0,
+        "risk_tier": "LOW",
+        "confidence_tier": "LOW"
+      },
+      "maximum_plausible": {
+        "status": "PASS",
+        "risk_score": 99.5,
+        "evidence_confidence": 100.0,
+        "risk_tier": "CRITICAL",
+        "confidence_tier": "HIGH"
+      },
+      "extreme_over_saturation": {
+        "status": "PASS",
+        "risk_score": 100.0,
+        "evidence_confidence": 100.0,
+        "risk_tier": "CRITICAL",
+        "confidence_tier": "HIGH"
+      },
+      "negative_inputs_where_applicable": {
+        "status": "PASS",
+        "risk_score": 3.0,
+        "evidence_confidence": 46.0,
+        "risk_tier": "LOW",
+        "confidence_tier": "LOW"
+      },
+      "zero_distance_exact": {
+        "status": "PASS",
+        "risk_score": 10.0,
+        "evidence_confidence": 46.0,
+        "risk_tier": "LOW",
+        "confidence_tier": "LOW"
+      },
+      "distance_beyond_5km": {
+        "status": "PASS",
+        "risk_score": 0.0,
+        "evidence_confidence": 46.0,
+        "risk_tier": "LOW",
+        "confidence_tier": "LOW"
+      },
+      "single_satellite": {
+        "status": "PASS",
+        "risk_score": 0.0,
+        "evidence_confidence": 46.0,
+        "risk_tier": "LOW",
+        "confidence_tier": "LOW"
+      },
+      "five_satellites": {
+        "status": "PASS",
+        "risk_score": 0.0,
+        "evidence_confidence": 70.0,
+        "risk_tier": "LOW",
+        "confidence_tier": "MEDIUM"
+      },
+      "stale_sentinel2_beyond_90d": {
+        "status": "PASS",
+        "risk_score": 0.0,
+        "evidence_confidence": 46.0,
+        "risk_tier": "LOW",
+        "confidence_tier": "LOW"
+      },
+      "missing_s2_entirely": {
+        "status": "PASS",
+        "risk_score": 0.0,
+        "evidence_confidence": 46.0,
+        "risk_tier": "LOW",
+        "confidence_tier": "LOW"
+      }
+    }
+  },
+  "part_D_missing_evidence_audit": {
+    "all_passed": true,
+    "cases": {
+      "missing_dim_A": {
+        "status": "PASS",
+        "score": 70.0,
+        "expected_drop": 15.0,
+        "actual_drop": 15.0,
+        "missing_evidence_audit": [
+          "dimension_A_thermal_missing"
+        ],
+        "no_weight_redistribution": true
+      },
+      "missing_dim_B": {
+        "status": "PASS",
+        "score": 60.0,
+        "expected_drop": 25.0,
+        "actual_drop": 25.0,
+        "missing_evidence_audit": [
+          "dimension_B_persistence_missing"
+        ],
+        "no_weight_redistribution": true
+      },
+      "missing_dim_C": {
+        "status": "PASS",
+        "score": 65.0,
+        "expected_drop": 20.0,
+        "actual_drop": 20.0,
+        "missing_evidence_audit": [
+          "dimension_C_industrial_missing"
+        ],
+        "no_weight_redistribution": true
+      },
+      "missing_dim_D": {
+        "status": "PASS",
+        "score": 75.0,
+        "expected_drop": 10.0,
+        "actual_drop": 10.0,
+        "missing_evidence_audit": [
+          "dimension_D_spatial_missing"
+        ],
+        "no_weight_redistribution": true
+      },
+      "missing_dim_E": {
+        "status": "PASS",
+        "score": 70.0,
+        "expected_drop": 15.0,
+        "actual_drop": 15.0,
+        "missing_evidence_audit": [
+          "dimension_E_spectral_missing",
+          "spectral_coverage:no_scene"
+        ],
+        "no_weight_redistribution": true
+      }
+    }
+  },
+  "part_E_sensitivity_audit": [
+    {
+      "event_id": "EVT_00963466",
+      "cohort_position": "Top",
+      "variable": "frp_mean",
+      "before": 2.8,
+      "after": 3.08,
+      "risk_before": 49.0,
+      "risk_after": 49.0,
+      "delta_risk": 0.0
+    },
+    {
+      "event_id": "EVT_00963466",
+      "cohort_position": "Top",
+      "variable": "frp_max",
+      "before": 34.8,
+      "after": 38.28,
+      "risk_before": 49.0,
+      "risk_after": 49.1,
+      "delta_risk": 0.1
+    },
+    {
+      "event_id": "EVT_00963466",
+      "cohort_position": "Top",
+      "variable": "brightness_mean",
+      "before": 313.25,
+      "after": 328.91,
+      "risk_before": 49.0,
+      "risk_after": 50.0,
+      "delta_risk": 1.0
+    },
+    {
+      "event_id": "EVT_00963466",
+      "cohort_position": "Top",
+      "variable": "distinct_detection_days",
+      "before": 343.0,
+      "after": 377.3,
+      "risk_before": 49.0,
+      "risk_after": 49.2,
+      "delta_risk": 0.2
+    },
+    {
+      "event_id": "EVT_00963466",
+      "cohort_position": "Top",
+      "variable": "detection_count",
+      "before": 21883.0,
+      "after": 24071.3,
+      "risk_before": 49.0,
+      "risk_after": 49.0,
+      "delta_risk": 0.0
+    },
+    {
+      "event_id": "EVT_00963466",
+      "cohort_position": "Top",
+      "variable": "osm_matched_fraction",
+      "before": 1.0,
+      "after": 1.1,
+      "risk_before": 49.0,
+      "risk_after": 49.0,
+      "delta_risk": 0.0
+    },
+    {
+      "event_id": "EVT_00963466",
+      "cohort_position": "Top",
+      "variable": "spatial_extent_km2",
+      "before": 88.59,
+      "after": 97.45,
+      "risk_before": 49.0,
+      "risk_after": 49.1,
+      "delta_risk": 0.1
+    },
+    {
+      "event_id": "EVT_00963466",
+      "cohort_position": "Top",
+      "variable": "swir2_anomaly_ratio",
+      "before": 1.27,
+      "after": 1.39,
+      "risk_before": 49.0,
+      "risk_after": 49.0,
+      "delta_risk": 0.0
+    },
+    {
+      "event_id": "EVT_01331086",
+      "cohort_position": "Median",
+      "variable": "frp_mean",
+      "before": 39.28,
+      "after": 43.21,
+      "risk_before": 18.5,
+      "risk_after": 19.1,
+      "delta_risk": 0.6
+    },
+    {
+      "event_id": "EVT_01331086",
+      "cohort_position": "Median",
+      "variable": "frp_max",
+      "before": 132.28,
+      "after": 145.51,
+      "risk_before": 18.5,
+      "risk_after": 18.8,
+      "delta_risk": 0.3
+    },
+    {
+      "event_id": "EVT_01331086",
+      "cohort_position": "Median",
+      "variable": "brightness_mean",
+      "before": 351.84,
+      "after": 369.43,
+      "risk_before": 18.5,
+      "risk_after": 19.6,
+      "delta_risk": 1.1
+    },
+    {
+      "event_id": "EVT_01331086",
+      "cohort_position": "Median",
+      "variable": "distinct_detection_days",
+      "before": 2.0,
+      "after": 2.2,
+      "risk_before": 18.5,
+      "risk_after": 18.7,
+      "delta_risk": 0.2
+    },
+    {
+      "event_id": "EVT_01331086",
+      "cohort_position": "Median",
+      "variable": "detection_count",
+      "before": 4.0,
+      "after": 4.4,
+      "risk_before": 18.5,
+      "risk_after": 18.6,
+      "delta_risk": 0.1
+    },
+    {
+      "event_id": "EVT_01331086",
+      "cohort_position": "Median",
+      "variable": "spatial_extent_km2",
+      "before": 0.36,
+      "after": 0.4,
+      "risk_before": 18.5,
+      "risk_after": 18.5,
+      "delta_risk": 0.0
+    },
+    {
+      "event_id": "EVT_01331086",
+      "cohort_position": "Median",
+      "variable": "swir2_anomaly_ratio",
+      "before": 0.87,
+      "after": 0.96,
+      "risk_before": 18.5,
+      "risk_after": 18.5,
+      "delta_risk": 0.0
+    },
+    {
+      "event_id": "EVT_01035117",
+      "cohort_position": "Low",
+      "variable": "frp_mean",
+      "before": 17.3,
+      "after": 19.03,
+      "risk_before": 6.3,
+      "risk_after": 6.6,
+      "delta_risk": 0.3
+    },
+    {
+      "event_id": "EVT_01035117",
+      "cohort_position": "Low",
+      "variable": "frp_max",
+      "before": 17.3,
+      "after": 19.03,
+      "risk_before": 6.3,
+      "risk_after": 6.4,
+      "delta_risk": 0.1
+    },
+    {
+      "event_id": "EVT_01035117",
+      "cohort_position": "Low",
+      "variable": "brightness_mean",
+      "before": 312.8,
+      "after": 328.44,
+      "risk_before": 6.3,
+      "risk_after": 7.3,
+      "delta_risk": 1.0
+    },
+    {
+      "event_id": "EVT_01035117",
+      "cohort_position": "Low",
+      "variable": "distinct_detection_days",
+      "before": 1.0,
+      "after": 1.1,
+      "risk_before": 6.3,
+      "risk_after": 6.5,
+      "delta_risk": 0.2
+    },
+    {
+      "event_id": "EVT_01035117",
+      "cohort_position": "Low",
+      "variable": "detection_count",
+      "before": 1.0,
+      "after": 1.1,
+      "risk_before": 6.3,
+      "risk_after": 6.4,
+      "delta_risk": 0.1
+    }
+  ],
+  "part_F_ranking_sanity_audit": {
+    "top_10_count": 10,
+    "bottom_10_count": 10,
+    "middle_5_count": 5
+  },
+  "part_G_independence_audit": {
+    "pearson_correlation": -0.225,
+    "independence_confirmation": "Risk and Evidence Confidence are mathematically separate. Confidence is not a multiplier, cap, or 6th risk dimension.",
+    "examples": [
+      {
+        "type": "High Risk / Med Conf",
+        "event_id": "EVT_00963466",
+        "risk_score": 49.0,
+        "risk_tier": "MODERATE",
+        "evidence_confidence": 70.0,
+        "confidence_tier": "MEDIUM"
+      },
+      {
+        "type": "High Risk / High Conf",
+        "event_id": "EVT_00791043",
+        "risk_score": 45.3,
+        "risk_tier": "MODERATE",
+        "evidence_confidence": 86.5,
+        "confidence_tier": "HIGH"
+      },
+      {
+        "type": "Low Risk / High Conf",
+        "event_id": "EVT_00424345",
+        "risk_score": 15.8,
+        "risk_tier": "LOW",
+        "evidence_confidence": 76.0,
+        "confidence_tier": "HIGH"
+      },
+      {
+        "type": "Low Risk / Low Conf",
+        "event_id": "EVT_01557619",
+        "risk_score": 11.2,
+        "risk_tier": "LOW",
+        "evidence_confidence": 46.0,
+        "confidence_tier": "LOW"
+      }
+    ]
+  },
+  "part_H_max_risk_investigation": {
+    "event_id": "EVT_00963466",
+    "total_risk_score": 49.0,
+    "dimensions": {
+      "thermal": {
+        "max_possible": 30.0,
+        "observed": 2.0,
+        "headroom_loss": 28.0,
+        "reason": "Mean FRP 2.8 MW vs 100 MW anchor; Max FRP 34.8 MW vs 500 MW anchor. Thermal intensity normalized score = 0.067."
+      },
+      "persistence": {
+        "max_possible": 25.0,
+        "observed": 24.2,
+        "headroom_loss": 0.8,
+        "reason": "343 days and 21,883 detections achieve near-complete saturation (0.970 normalized)."
+      },
+      "industrial": {
+        "max_possible": 20.0,
+        "observed": 15.5,
+        "headroom_loss": 4.5,
+        "reason": "Near 100% matched/containment inside coal quarry. Proximity fraction 0.231 prevents 100% saturation."
+      },
+      "spatial": {
+        "max_possible": 10.0,
+        "observed": 7.2,
+        "headroom_loss": 2.8,
+        "reason": "Convex hull area is 88.6 km2 vs 500 km2 anchor (0.723 normalized)."
+      },
+      "spectral": {
+        "max_possible": 15.0,
+        "observed": 0.0,
+        "headroom_loss": 15.0,
+        "reason": "Sentinel-2 scene was extracted 238 days away from thermal detection. Temporal reliability decays to 0.0 beyond 90 days per methodology."
+      }
+    },
+    "conclusion": "Max risk of 49.0 is mathematically consistent with the frozen methodology and the physical characteristics of the pilot cohort."
+  },
+  "supported_claims": [
+    "Deterministic mathematical reproducibility (bit-for-bit identical across executions).",
+    "Monotonic response to increasing thermal, persistence, proximity, spatial, and spectral evidence.",
+    "Complete boundary safety: risk score strictly bounded in [0, 100], confidence in [0, 100].",
+    "Zero weight redistribution when evidence is missing; fixed unredistributed scale preserved.",
+    "Evidence Confidence is mathematically independent from numerical Risk Score.",
+    "Continuous inputs exhibit smooth sensitivity without step-function discontinuities.",
+    "Ranking prioritizes multi-month industrial/mining operations over isolated rural burns."
+  ],
+  "unsupported_claims": [
+    "Classification accuracy, precision, recall, F1, or ROC-AUC metrics.",
+    "Probability of active industrial fire or ground-truth event classification.",
+    "Evaluation of false-positive or false-negative rates against real-world incidents.",
+    "Interpretation of low risk scores as proof of real-world safety when confidence is low.",
+    "Inferring active combustion temperature directly from Sentinel-2 SWIR reflectance bands."
+  ]
+}

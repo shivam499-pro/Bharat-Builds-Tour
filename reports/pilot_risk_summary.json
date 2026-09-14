@@ -1,0 +1,201 @@
+{
+  "coverage": {
+    "total_events": 100,
+    "successfully_scored": 100,
+    "failures": 0,
+    "zero_thermal_events": 0,
+    "zero_persistence_events": 0,
+    "no_industrial_match_events": 60,
+    "zero_spatial_events": 19,
+    "missing_or_zero_spectral_events": 47
+  },
+  "score_distribution": {
+    "min": 6.3,
+    "max": 49.0,
+    "mean": 26.63,
+    "median": 18.35,
+    "std": 14.2,
+    "percentiles": {
+      "p10": 12.4,
+      "p25": 13.975,
+      "p50": 18.35,
+      "p75": 42.824999999999996,
+      "p90": 44.46
+    }
+  },
+  "risk_tiers": {
+    "counts": {
+      "LOW": 58,
+      "MODERATE": 42,
+      "HIGH": 0,
+      "CRITICAL": 0
+    },
+    "percentages": {
+      "LOW": 58.0,
+      "MODERATE": 42.0,
+      "HIGH": 0.0,
+      "CRITICAL": 0.0
+    }
+  },
+  "confidence_distribution": {
+    "min": 46.0,
+    "max": 97.2,
+    "mean": 74.75,
+    "median": 75.4,
+    "std": 9.54,
+    "tier_counts": {
+      "LOW": 2,
+      "MEDIUM": 47,
+      "HIGH": 51
+    },
+    "tier_percentages": {
+      "LOW": 2.0,
+      "MEDIUM": 47.0,
+      "HIGH": 51.0
+    }
+  },
+  "top_5_events": [
+    {
+      "event_id": "EVT_00963466",
+      "risk_score": 49.0,
+      "risk_tier": "MODERATE",
+      "evidence_confidence": 70.0,
+      "confidence_tier": "MEDIUM",
+      "weighted_thermal": 0.020025857142857137,
+      "weighted_persistence": 0.2424344781034013,
+      "weighted_industrial": 0.155023,
+      "weighted_spatial": 0.07231038040461533,
+      "weighted_spectral": 0.0,
+      "worldcover_class_name": "Bare / sparse vegetation",
+      "osm_primary_category": "mine_quarry"
+    },
+    {
+      "event_id": "EVT_00964154",
+      "risk_score": 48.3,
+      "risk_tier": "MODERATE",
+      "evidence_confidence": 70.0,
+      "confidence_tier": "MEDIUM",
+      "weighted_thermal": 0.02169171428571429,
+      "weighted_persistence": 0.23301451158326772,
+      "weighted_industrial": 0.155836,
+      "weighted_spatial": 0.07210279848924399,
+      "weighted_spectral": 0.0,
+      "worldcover_class_name": "Tree cover",
+      "osm_primary_category": "mine_quarry"
+    },
+    {
+      "event_id": "EVT_00598933",
+      "risk_score": 46.5,
+      "risk_tier": "MODERATE",
+      "evidence_confidence": 70.0,
+      "confidence_tier": "MEDIUM",
+      "weighted_thermal": 0.02447142857142857,
+      "weighted_persistence": 0.22760665226620175,
+      "weighted_industrial": 0.157492,
+      "weighted_spatial": 0.05560279682179467,
+      "weighted_spectral": 0.0,
+      "worldcover_class_name": "Permanent water bodies",
+      "osm_primary_category": "mine_quarry"
+    },
+    {
+      "event_id": "EVT_00615821",
+      "risk_score": 46.1,
+      "risk_tier": "MODERATE",
+      "evidence_confidence": 70.0,
+      "confidence_tier": "MEDIUM",
+      "weighted_thermal": 0.036423000000000004,
+      "weighted_persistence": 0.23027733539393125,
+      "weighted_industrial": 0.15676800000000002,
+      "weighted_spatial": 0.03712029276084597,
+      "weighted_spectral": 0.0,
+      "worldcover_class_name": "Bare / sparse vegetation",
+      "osm_primary_category": "factory_works"
+    },
+    {
+      "event_id": "EVT_00615820",
+      "risk_score": 46.1,
+      "risk_tier": "MODERATE",
+      "evidence_confidence": 70.0,
+      "confidence_tier": "MEDIUM",
+      "weighted_thermal": 0.038962414285714266,
+      "weighted_persistence": 0.22782591080252357,
+      "weighted_industrial": 0.156516,
+      "weighted_spatial": 0.037921849255069986,
+      "weighted_spectral": 0.0,
+      "worldcover_class_name": "Bare / sparse vegetation",
+      "osm_primary_category": "factory_works"
+    }
+  ],
+  "lowest_5_events": [
+    {
+      "event_id": "EVT_01035117",
+      "risk_score": 6.3,
+      "risk_tier": "LOW",
+      "evidence_confidence": 46.0,
+      "confidence_tier": "LOW",
+      "weighted_thermal": 0.03781157142857143,
+      "weighted_persistence": 0.025354992320410857,
+      "weighted_industrial": 0.0,
+      "weighted_spatial": 0.0,
+      "weighted_spectral": 0.0,
+      "worldcover_class_name": "Cropland",
+      "osm_primary_category": "nan"
+    },
+    {
+      "event_id": "EVT_01383431",
+      "risk_score": 7.9,
+      "risk_tier": "LOW",
+      "evidence_confidence": 52.0,
+      "confidence_tier": "MEDIUM",
+      "weighted_thermal": 0.04845171428571427,
+      "weighted_persistence": 0.030159706528240494,
+      "weighted_industrial": 0.0,
+      "weighted_spatial": 0.0005175932200305576,
+      "weighted_spectral": 0.0,
+      "worldcover_class_name": "Cropland",
+      "osm_primary_category": "nan"
+    },
+    {
+      "event_id": "EVT_00795287",
+      "risk_score": 10.1,
+      "risk_tier": "LOW",
+      "evidence_confidence": 52.0,
+      "confidence_tier": "MEDIUM",
+      "weighted_thermal": 0.045763114285714265,
+      "weighted_persistence": 0.050709984640821715,
+      "weighted_industrial": 0.0,
+      "weighted_spatial": 0.004069953617816224,
+      "weighted_spectral": 0.0,
+      "worldcover_class_name": "Tree cover",
+      "osm_primary_category": "nan"
+    },
+    {
+      "event_id": "EVT_01557619",
+      "risk_score": 11.2,
+      "risk_tier": "LOW",
+      "evidence_confidence": 46.0,
+      "confidence_tier": "LOW",
+      "weighted_thermal": 0.08383572857142856,
+      "weighted_persistence": 0.02816556995867335,
+      "weighted_industrial": 0.0,
+      "weighted_spatial": 0.0002363274832617419,
+      "weighted_spectral": 0.0,
+      "worldcover_class_name": "Cropland",
+      "osm_primary_category": "nan"
+    },
+    {
+      "event_id": "EVT_00230882",
+      "risk_score": 11.3,
+      "risk_tier": "LOW",
+      "evidence_confidence": 76.0,
+      "confidence_tier": "HIGH",
+      "weighted_thermal": 0.04610057142857143,
+      "weighted_persistence": 0.025354992320410857,
+      "weighted_industrial": 0.0,
+      "weighted_spatial": 0.0,
+      "weighted_spectral": 0.041888249999999995,
+      "worldcover_class_name": "Cropland",
+      "osm_primary_category": "nan"
+    }
+  ]
+}

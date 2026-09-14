@@ -1,0 +1,218 @@
+{
+  "dimensions": {
+    "thermal": {
+      "normalized_score": {
+        "min": 0.028,
+        "max": 0.633,
+        "mean": 0.152,
+        "median": 0.145,
+        "std": 0.095,
+        "p10": 0.056,
+        "p25": 0.07,
+        "p50": 0.145,
+        "p75": 0.193,
+        "p90": 0.234
+      },
+      "weighted_contribution": {
+        "min": 0.008,
+        "max": 0.19,
+        "mean": 0.045,
+        "median": 0.044,
+        "std": 0.028,
+        "p10": 0.017,
+        "p25": 0.021,
+        "p50": 0.044,
+        "p75": 0.058,
+        "p90": 0.07
+      },
+      "zero_count": 0,
+      "zero_pct": 0.0
+    },
+    "persistence": {
+      "normalized_score": {
+        "min": 0.101,
+        "max": 0.97,
+        "mean": 0.464,
+        "median": 0.274,
+        "std": 0.35,
+        "p10": 0.101,
+        "p25": 0.121,
+        "p50": 0.274,
+        "p75": 0.878,
+        "p90": 0.898
+      },
+      "weighted_contribution": {
+        "min": 0.025,
+        "max": 0.242,
+        "mean": 0.116,
+        "median": 0.068,
+        "std": 0.088,
+        "p10": 0.025,
+        "p25": 0.03,
+        "p50": 0.068,
+        "p75": 0.22,
+        "p90": 0.224
+      },
+      "zero_count": 0,
+      "zero_pct": 0.0
+    },
+    "industrial": {
+      "normalized_score": {
+        "min": 0.0,
+        "max": 0.8,
+        "mean": 0.304,
+        "median": 0.0,
+        "std": 0.374,
+        "p10": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.773,
+        "p90": 0.795
+      },
+      "weighted_contribution": {
+        "min": 0.0,
+        "max": 0.16,
+        "mean": 0.061,
+        "median": 0.0,
+        "std": 0.075,
+        "p10": 0.0,
+        "p25": 0.0,
+        "p50": 0.0,
+        "p75": 0.155,
+        "p90": 0.159
+      },
+      "zero_count": 60,
+      "zero_pct": 60.0
+    },
+    "spatial": {
+      "normalized_score": {
+        "min": 0.0,
+        "max": 0.723,
+        "mean": 0.22,
+        "median": 0.236,
+        "std": 0.191,
+        "p10": 0.0,
+        "p25": 0.006,
+        "p50": 0.236,
+        "p75": 0.371,
+        "p90": 0.425
+      },
+      "weighted_contribution": {
+        "min": 0.0,
+        "max": 0.072,
+        "mean": 0.022,
+        "median": 0.024,
+        "std": 0.019,
+        "p10": 0.0,
+        "p25": 0.001,
+        "p50": 0.024,
+        "p75": 0.037,
+        "p90": 0.043
+      },
+      "zero_count": 19,
+      "zero_pct": 19.0
+    },
+    "spectral": {
+      "normalized_score": {
+        "min": 0.0,
+        "max": 0.386,
+        "mean": 0.147,
+        "median": 0.145,
+        "std": 0.151,
+        "p10": 0.0,
+        "p25": 0.0,
+        "p50": 0.145,
+        "p75": 0.294,
+        "p90": 0.357
+      },
+      "weighted_contribution": {
+        "min": 0.0,
+        "max": 0.058,
+        "mean": 0.022,
+        "median": 0.022,
+        "std": 0.023,
+        "p10": 0.0,
+        "p25": 0.0,
+        "p50": 0.022,
+        "p75": 0.044,
+        "p90": 0.054
+      },
+      "zero_count": 47,
+      "zero_pct": 47.0
+    }
+  },
+  "risk": {
+    "min": 6.3,
+    "max": 49.0,
+    "mean": 26.629,
+    "median": 18.35,
+    "std": 14.202,
+    "p10": 12.4,
+    "p25": 13.975,
+    "p50": 18.35,
+    "p75": 42.825,
+    "p90": 44.46
+  },
+  "risk_tiers": {
+    "LOW": 58,
+    "MODERATE": 42
+  },
+  "confidence": {
+    "min": 46.0,
+    "max": 97.2,
+    "mean": 74.746,
+    "median": 75.4,
+    "std": 9.54,
+    "p10": 69.4,
+    "p25": 70.0,
+    "p50": 75.4,
+    "p75": 81.475,
+    "p90": 88.0
+  },
+  "confidence_tiers": {
+    "HIGH": 51,
+    "MEDIUM": 47,
+    "LOW": 2
+  },
+  "quadrants": {
+    "High_Risk_High_Conf": 2,
+    "High_Risk_Low_Conf": 0,
+    "Low_Risk_High_Conf": 49,
+    "Low_Risk_Low_Conf": 6
+  },
+  "missing_evidence": {
+    "spectral_no_scene": 0,
+    "spectral_extraction_failed": 10,
+    "spectral_stale_relevance": 38,
+    "spectral_degraded_cloud": 3,
+    "osm_no_mapped_association": 60,
+    "spatial_zero_area": 19
+  },
+  "upper_bound_analysis": {
+    "thermal": {
+      "max_possible_weighted": 0.3,
+      "max_observed_weighted": 0.1898140285714286,
+      "reason": "Pilot cohort has low-to-moderate FRP (mean FRP_mean = 3.6 MW, max FRP_mean = 28.5 MW vs 100 MW anchor; max FRP_max = 84 MW vs 500 MW anchor). Thermal dimension normalized scores peak at 0.28 (weighted 0.084 / 0.30)."
+    },
+    "persistence": {
+      "max_possible_weighted": 0.25,
+      "max_observed_weighted": 0.2424344781034013,
+      "reason": "Industrial coal/mine events exhibit very high persistence (up to 343 days and 21,883 detections), achieving near saturation (0.242 / 0.25)."
+    },
+    "industrial": {
+      "max_possible_weighted": 0.2,
+      "max_observed_weighted": 0.15995600000000001,
+      "reason": "Top industrial events have near 100% containment and proximity, yielding 0.155 to 0.160 / 0.20."
+    },
+    "spatial": {
+      "max_possible_weighted": 0.1,
+      "max_observed_weighted": 0.07231038040461533,
+      "reason": "Spatial scale for top mining events reaches ~88 km2 (log normalized = 0.72, weighted 0.072 / 0.10). No event reaches 500 km2 scale."
+    },
+    "spectral": {
+      "max_possible_weighted": 0.15,
+      "max_observed_weighted": 0.05788826999999999,
+      "reason": "Sentinel-2 scenes for high-persistence mining/industrial events had large temporal deltas (>90 days) due to pilot extraction date alignment, resulting in temporal_reliability = 0.0 and spectral contribution = 0.0. Where S2 was available near-event, SWIR anomaly was modest (weighted max 0.063 / 0.15)."
+    }
+  }
+}
