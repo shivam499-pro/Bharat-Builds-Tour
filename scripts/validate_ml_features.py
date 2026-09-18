@@ -6,16 +6,13 @@ import numpy as np
 
 
 def get_dataset_path():
-    candidates = [
-        Path(r"C:\AWS Hackathon\data\satellite\processed\thermoguard_ml_features_pilot.parquet"),
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed" / "thermoguard_ml_features_pilot.parquet",
-        Path(__file__).resolve().parent.parent / "data" / "satellite" / "processed" / "thermoguard_ml_features_pilot.parquet",
-        Path("data/satellite/processed/thermoguard_ml_features_pilot.parquet"),
-    ]
-    for p in candidates:
-        if p.exists():
-            return p
-    return None
+    import sys
+    repo_root = Path(__file__).resolve().parent.parent
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from repo_paths import find_processed_file
+
+    return find_processed_file("thermoguard_ml_features_pilot.parquet")
 
 
 def haversine_km(lat1, lon1, lat2, lon2):

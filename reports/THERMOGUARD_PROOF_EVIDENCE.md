@@ -1,7 +1,7 @@
 # ThermoGuard — Proof & Evidence of Completed Work
 
 **Audience**: SIH 2026 Evaluators, Technical Reviewers, and Hackathon Judges
-**Repository**: `c:\AWS Hackathon\Bharat-Builds-Tour`
+**Repository**: https://github.com/shivam499-pro/Bharat-Builds-Tour
 **Methodology Baseline**: `docs/PhaseIX_RISK_METHODOLOGY.md` (`PhaseIX-2026-09-14`)
 **Scope**: Completed Work Only (Phases I–IX, Tasks 25–29)
 **Document Generation Date**: 2026-09-14
@@ -73,7 +73,7 @@ $$\text{Risk Score} = 100 \times \left[ 0.30 \cdot D_A + 0.25 \cdot D_B + 0.20 \
 4. **Dimension D — Spatial Scale (10%)**:
    - Convex hull cluster area, log-normalized ($100\%$, anchor 500 km²).
 5. **Dimension E — Spectral / Surface Evidence (15%)**:
-   - Linear combination of SWIR2 anomaly ratio ($45\%$), NDVI disturbance ($25\%$), SWIR2/SWIR1 ratio ($20\%$), and BSI ($10\%$), modulated by cloud clarity ($SCL_{\text{clear}}$) and exponential temporal decay ($e^{-\lambda \cdot \Delta t}$, reaching 0.0 at $>90$ days).
+   - Linear combination of SWIR2 anomaly ratio ($45\%$), NDVI disturbance ($25\%$), SWIR2/SWIR1 ratio ($20\%$), and BSI ($10\%$), modulated by `spectral_reliability = temporal_reliability × cloud_reliability`. Temporal decay is linear ($1 - \Delta t/90$, zero after 90 days). Cloud reliability is $1.0$ when $SCL_{\text{clear}} \ge 0.9$, proportional when $0.5 \le SCL_{\text{clear}} < 0.9$, otherwise $0.0$.
 
 ### Strict Decoupling of Evidence Confidence:
 - **Evidence Confidence** is an independent $0\text{--}100$ metric measuring observational quality, cloud cover, temporal lag, and sensor corroboration (`distinct_satellites`).

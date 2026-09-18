@@ -1,14 +1,20 @@
-import pandas as pd
-import numpy as np
+import sys
 from pathlib import Path
 
-# Paths (relative to repo root)
-ENRICHED = Path('data/satellite/processed/firms_satellite_enriched_pilot.parquet')
-REPORT_MD = Path('scratch/baseline_feature_analysis_report.md')
+import pandas as pd
+import numpy as np
 
-# Load data using fastparquet (installed in the environment)
-print('Loading enriched pilot dataset...')
-df = pd.read_parquet(ENRICHED, engine='fastparquet')
+REPO_ROOT = Path(__file__).resolve().parent.parent
+if str(REPO_ROOT) not in sys.path:
+    sys.path.insert(0, str(REPO_ROOT))
+
+from repo_paths import require_processed_file
+
+ENRICHED = require_processed_file("firms_satellite_enriched_pilot.parquet")
+REPORT_MD = REPO_ROOT / "reports" / "baseline_feature_analysis_report.md"
+
+print("Loading enriched pilot dataset...")
+df = pd.read_parquet(ENRICHED)
 
 # Identify rows with all required spectral features
 REQ_SPECTRAL = [

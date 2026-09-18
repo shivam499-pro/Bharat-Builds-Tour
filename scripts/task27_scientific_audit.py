@@ -420,7 +420,9 @@ def audit_sensitivity(df_pilot):
     Perturbs continuous inputs by +10% and assesses delta risk.
     """
     # Load raw enriched data (scored parquet only has dimension scores)
-    raw_path = Path(r"c:\AWS Hackathon\data\satellite\processed\firms_satellite_enriched_pilot.parquet")
+    from repo_paths import require_processed_file
+
+    raw_path = require_processed_file("firms_satellite_enriched_pilot.parquet")
     df_raw = pd.read_parquet(raw_path)
     raw_map = {row["event_id"]: row.to_dict() for _, row in df_raw.iterrows()}
 

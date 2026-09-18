@@ -20,16 +20,13 @@ ALLOWED_CONFIDENCES = {
 
 
 def find_file(filename):
-    candidates = [
-        Path(r"C:\AWS Hackathon\data\satellite\processed") / filename,
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed" / filename,
-        Path(__file__).resolve().parent.parent / "data" / "satellite" / "processed" / filename,
-        Path("data/satellite/processed") / filename,
-    ]
-    for p in candidates:
-        if p.exists():
-            return p
-    return None
+    import sys
+    repo_root = Path(__file__).resolve().parent.parent
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from repo_paths import find_processed_file
+
+    return find_processed_file(filename)
 
 
 def main():

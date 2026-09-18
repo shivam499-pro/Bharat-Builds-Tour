@@ -18,6 +18,7 @@ env/
 # Data files (large)
 data/
 *.parquet
+!reports/*.parquet
 *.tif
 *.tiff
 *.geotiff

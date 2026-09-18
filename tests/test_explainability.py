@@ -253,9 +253,11 @@ class TestExplainabilityLayer(unittest.TestCase):
 
     def test_12_top_bottom_pilot_events(self):
         """12. Verify explanations for actual top and bottom pilot events."""
-        pilot_path = Path(r"c:\AWS Hackathon\data\satellite\processed\firms_satellite_enriched_pilot.parquet")
-        if not pilot_path.exists():
-            self.skipTest("Pilot parquet not found at expected path")
+        from repo_paths import find_processed_file
+
+        pilot_path = find_processed_file("firms_satellite_enriched_pilot.parquet")
+        if pilot_path is None:
+            self.skipTest("Pilot parquet not found (set THERMOGUARD_DATA_ROOT or add data/satellite/processed)")
 
         df = pd.read_parquet(pilot_path)
         top_row = df[df["event_id"] == "EVT_00963466"].iloc[0].to_dict()

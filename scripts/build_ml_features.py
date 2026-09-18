@@ -5,34 +5,14 @@ import numpy as np
 
 
 def get_paths():
-    possible_en = [
-        Path(r"C:\AWS Hackathon\data\satellite\processed\firms_satellite_enriched_pilot.parquet"),
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed" / "firms_satellite_enriched_pilot.parquet",
-        Path(__file__).resolve().parent.parent / "data" / "satellite" / "processed" / "firms_satellite_enriched_pilot.parquet",
-        Path("data/satellite/processed/firms_satellite_enriched_pilot.parquet"),
-    ]
-    en_path = None
-    for p in possible_en:
-        if p.exists():
-            en_path = p
-            break
-    if en_path is None:
-        raise FileNotFoundError("Could not find firms_satellite_enriched_pilot.parquet")
+    import sys
+    repo_root = Path(__file__).resolve().parent.parent
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from repo_paths import require_processed_file
 
-    possible_gt = [
-        Path(r"C:\AWS Hackathon\data\satellite\processed\firms_ground_truth_pilot.parquet"),
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed" / "firms_ground_truth_pilot.parquet",
-        Path(__file__).resolve().parent.parent / "data" / "satellite" / "processed" / "firms_ground_truth_pilot.parquet",
-        Path("data/satellite/processed/firms_ground_truth_pilot.parquet"),
-    ]
-    gt_path = None
-    for p in possible_gt:
-        if p.exists():
-            gt_path = p
-            break
-    if gt_path is None:
-        raise FileNotFoundError("Could not find firms_ground_truth_pilot.parquet")
-
+    en_path = require_processed_file("firms_satellite_enriched_pilot.parquet")
+    gt_path = require_processed_file("firms_ground_truth_pilot.parquet")
     output_dir = en_path.parent
     output_path = output_dir / "thermoguard_ml_features_pilot.parquet"
     return en_path, gt_path, output_dir, output_path

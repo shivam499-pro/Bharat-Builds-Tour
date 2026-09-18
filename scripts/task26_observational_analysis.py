@@ -31,10 +31,20 @@ def compute_distribution(arr):
     }
 
 def main():
-    scores_path = REPO_ROOT / "reports" / "pilot_risk_scores.parquet"
+    scores_parquet = REPO_ROOT / "reports" / "pilot_risk_scores.parquet"
+    scores_csv = REPO_ROOT / "reports" / "pilot_risk_scores.csv"
     audits_path = REPO_ROOT / "reports" / "pilot_risk_audit_explanations.json"
 
-    df = pd.read_parquet(scores_path)
+    if scores_parquet.exists():
+        df = pd.read_parquet(scores_parquet)
+        scores_path = scores_parquet
+    elif scores_csv.exists():
+        df = pd.read_csv(scores_csv)
+        scores_path = scores_csv
+    else:
+        raise FileNotFoundError(
+            f"Could not find scored pilot table at {scores_parquet} or {scores_csv}"
+        )
     with open(audits_path, "r", encoding="utf-8") as f:
         audits = json.load(f)
 

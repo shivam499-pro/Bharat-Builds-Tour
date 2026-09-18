@@ -27,35 +27,13 @@ ALLOWED_REVIEW_STATUSES = {
 
 
 def get_paths():
-    possible_inputs = [
-        Path(r"C:\AWS Hackathon\data\satellite\processed\firms_satellite_enriched_pilot.parquet"),
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed" / "firms_satellite_enriched_pilot.parquet",
-        Path(__file__).resolve().parent.parent / "data" / "satellite" / "processed" / "firms_satellite_enriched_pilot.parquet",
-        Path("data/satellite/processed/firms_satellite_enriched_pilot.parquet"),
-    ]
-    input_path = None
-    for p in possible_inputs:
-        if p.exists():
-            input_path = p
-            break
+    repo_root = Path(__file__).resolve().parent.parent
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from repo_paths import require_processed_file
 
-    if input_path is None:
-        raise FileNotFoundError("Could not find input file: firms_satellite_enriched_pilot.parquet")
-
-    possible_outputs = [
-        input_path.parent / "firms_ground_truth_pilot.parquet",
-        Path(r"C:\AWS Hackathon\data\satellite\processed\firms_ground_truth_pilot.parquet"),
-        Path("data/satellite/processed/firms_ground_truth_pilot.parquet"),
-    ]
-    output_path = None
-    for p in possible_outputs:
-        if p.exists():
-            output_path = p
-            break
-
-    if output_path is None:
-        raise FileNotFoundError("Could not find output file: firms_ground_truth_pilot.parquet")
-
+    input_path = require_processed_file("firms_satellite_enriched_pilot.parquet")
+    output_path = require_processed_file("firms_ground_truth_pilot.parquet")
     return input_path, output_path
 
 

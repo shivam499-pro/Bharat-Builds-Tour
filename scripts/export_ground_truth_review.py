@@ -4,21 +4,13 @@ import pandas as pd
 
 
 def get_paths():
-    possible_inputs = [
-        Path(r"C:\AWS Hackathon\data\satellite\processed\firms_ground_truth_pilot.parquet"),
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed" / "firms_ground_truth_pilot.parquet",
-        Path(__file__).resolve().parent.parent / "data" / "satellite" / "processed" / "firms_ground_truth_pilot.parquet",
-        Path("data/satellite/processed/firms_ground_truth_pilot.parquet"),
-    ]
-    input_path = None
-    for p in possible_inputs:
-        if p.exists():
-            input_path = p
-            break
+    import sys
+    repo_root = Path(__file__).resolve().parent.parent
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from repo_paths import require_processed_file
 
-    if input_path is None:
-        raise FileNotFoundError("Could not find input file: firms_ground_truth_pilot.parquet")
-
+    input_path = require_processed_file("firms_ground_truth_pilot.parquet")
     output_dir = input_path.parent
     output_path = output_dir / "firms_ground_truth_pilot_review.csv"
     return input_path, output_dir, output_path

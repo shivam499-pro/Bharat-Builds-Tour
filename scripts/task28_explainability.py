@@ -23,6 +23,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from repo_paths import require_processed_file
 from risk_engine.scoring import score_event, METHODOLOGY_VERSION
 from risk_engine.explanation import (
     generate_comprehensive_explanation,
@@ -31,14 +32,7 @@ from risk_engine.explanation import (
 
 
 def load_pilot_dataset() -> pd.DataFrame:
-    candidates = [
-        Path(r"c:\AWS Hackathon\data\satellite\processed\firms_satellite_enriched_pilot.parquet"),
-        REPO_ROOT.parent / "data" / "satellite" / "processed" / "firms_satellite_enriched_pilot.parquet",
-    ]
-    for c in candidates:
-        if c.exists():
-            return pd.read_parquet(c)
-    raise FileNotFoundError(f"Pilot dataset not found in candidate paths: {candidates}")
+    return pd.read_parquet(require_processed_file("firms_satellite_enriched_pilot.parquet"))
 
 
 def main():

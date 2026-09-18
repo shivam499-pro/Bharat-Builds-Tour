@@ -4,39 +4,16 @@ import pandas as pd
 
 
 def get_paths():
-    # Ground-truth pilot input
-    possible_gt = [
-        Path(r"C:\AWS Hackathon\data\satellite\processed\firms_ground_truth_pilot.parquet"),
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed" / "firms_ground_truth_pilot.parquet",
-        Path(__file__).resolve().parent.parent / "data" / "satellite" / "processed" / "firms_ground_truth_pilot.parquet",
-        Path("data/satellite/processed/firms_ground_truth_pilot.parquet"),
-    ]
-    gt_path = None
-    for p in possible_gt:
-        if p.exists():
-            gt_path = p
-            break
-    if gt_path is None:
-        raise FileNotFoundError("Could not find firms_ground_truth_pilot.parquet")
+    import sys
+    repo_root = Path(__file__).resolve().parent.parent
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from repo_paths import require_processed_file
 
-    # Enriched satellite pilot input
-    possible_enriched = [
-        Path(r"C:\AWS Hackathon\data\satellite\processed\firms_satellite_enriched_pilot.parquet"),
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed" / "firms_satellite_enriched_pilot.parquet",
-        Path(__file__).resolve().parent.parent / "data" / "satellite" / "processed" / "firms_satellite_enriched_pilot.parquet",
-        Path("data/satellite/processed/firms_satellite_enriched_pilot.parquet"),
-    ]
-    enriched_path = None
-    for p in possible_enriched:
-        if p.exists():
-            enriched_path = p
-            break
-    if enriched_path is None:
-        raise FileNotFoundError("Could not find firms_satellite_enriched_pilot.parquet")
-
+    gt_path = require_processed_file("firms_ground_truth_pilot.parquet")
+    enriched_path = require_processed_file("firms_satellite_enriched_pilot.parquet")
     output_dir = gt_path.parent
     output_path = output_dir / "firms_evidence_review_pilot.parquet"
-
     return gt_path, enriched_path, output_dir, output_path
 
 

@@ -1,7 +1,7 @@
 # TASK 29 — SIH26162 + AWS SHIP IT COMPLIANCE & READINESS AUDIT
 
 **Author**: Principal Engineer / Technical Auditor & Hackathon Evaluator
-**Audit Scope**: Repository `c:\AWS Hackathon\Bharat-Builds-Tour` and Core Ingestion/Clustering Pipelines
+**Audit Scope**: Public repository https://github.com/shivam499-pro/Bharat-Builds-Tour (risk engine, tests, reports) plus local ingestion/clustering pipelines that are not vendored in this GitHub tree
 **Methodology Baseline**: `docs/PhaseIX_RISK_METHODOLOGY.md` (`PhaseIX-2026-09-14`)
 **Audit Date**: 2026-09-14
 **Auditor Policy**: Evidence over assumptions; repository implementation as source of truth.
@@ -26,8 +26,8 @@
 > *"AI-Based Detection and Classification of Industrial Fires and Persistent Thermal Sources Using NASA FIRMS, OSM & Satellite Data."*
 
 ### A1. Detection: `PARTIAL`
-- **Where thermal anomalies are obtained**: NASA FIRMS VIIRS (375m Suomi-NPP & NOAA-20) and MODIS (1km Terra & Aqua) CSV archives in `c:\AWS Hackathon\data\FIRMS\raw`. Total ingested detections: **5,191,144 records**.
-- **Consumption of FIRMS data**: Consumed and filtered by `scripts/cluster_firms_events.py`.
+- **Where thermal anomalies are obtained**: NASA FIRMS VIIRS (375m Suomi-NPP & NOAA-20) and MODIS (1km Terra & Aqua) CSV archives (local `data/FIRMS/raw`, git-ignored). Total ingested detections: **5,191,144 records**.
+- **Consumption of FIRMS data**: Consumed and filtered by the local clustering pipeline (`cluster_firms_events.py`; not currently in this public GitHub tree).
 - **Event Representation**: Spatio-temporal event clusters defined in `firms_persistent_events.parquet`. Each event possesses an `event_id` (e.g. `EVT_00963466`), centroid coordinates (`centroid_lat`, `centroid_lon`), bounding box coordinates, observation time windows (`first_detection`, `last_detection`, `duration_days`), and aggregated thermal stats (`frp_mean`, `frp_max`, `brightness_mean`).
 - **Event Detection vs Event Analysis**:
   - The script `scripts/cluster_firms_events.py` performs **event-level detection** via a 0.005° (~550m) spatial grid and 5-day observation gap, connected via an STRtree spatial index (0.0075° threshold) into connected components.
@@ -35,8 +35,8 @@
 - **Automation Status**: Batch automation is implemented via standalone scripts. Real-time online streaming detection from live NASA FIRMS feeds is **NOT IMPLEMENTED**.
 
 ### A2. Industrial Association: `IMPLEMENTED`
-- **OSM Ingestion & Extraction**: Implemented in `c:\AWS Hackathon\scripts\extract_osm_industrial.py`, which filters India OSM PBF data into `india_industrial_reference.parquet`.
-- **OSM Spatial Correlation**: Implemented in `c:\AWS Hackathon\scripts\correlate_firms_osm.py`, computing polygon containment, proximity buffers, and nearest-feature Euclidean distance.
+- **OSM Ingestion & Extraction**: Local `extract_osm_industrial.py` (not in this public GitHub tree) filters India OSM PBF data into `india_industrial_reference.parquet`.
+- **OSM Spatial Correlation**: Local `correlate_firms_osm.py` computes polygon containment, proximity buffers, and nearest-feature Euclidean distance.
 - **Phase IX Methodology Adherence**: Dimension C (Industrial Association, 20% weight) strictly uses objective spatial metrics:
   - `osm_matched_fraction` (35%)
   - `osm_containment_fraction` (30%)
@@ -64,9 +64,9 @@
   - Verified labels for at least 3 distinct classes: (a) Uncontrolled Industrial Fire, (b) Routine Persistent Industrial Heat Source, (c) Agricultural/Wildfire.
 
 ### A5. Satellite Evidence: `IMPLEMENTED`
-- **Satellite Ingestion**: Implemented in `c:\AWS Hackathon\scripts\enrich_satellite_features.py` querying AWS Element84 STAC API for Sentinel-2 L2A Cloud-Optimized GeoTIFFs (COGs).
+- **Satellite Ingestion**: Local `enrich_satellite_features.py` (not in this public GitHub tree) queries the AWS Element84 STAC API for Sentinel-2 L2A Cloud-Optimized GeoTIFFs (COGs).
 - **Extracted Indices**: SWIR2 anomaly ratio (B12 contrast), NDVI disturbance, SWIR2/SWIR1 ratio (B12/B11), Bare Soil Index (BSI), and Scene Classification Layer (SCL) clear/cloud fractions.
-- **Methodology Compliance**: Dimension E (15% weight) modulates surface features by cloud reliability ($SCL_{clear}$) and temporal decay ($e^{-\lambda \cdot \Delta t}$, decaying to 0.0 past 90 days).
+- **Methodology Compliance**: Dimension E (15% weight) modulates surface features by `spectral_reliability = temporal_reliability × cloud_reliability`. Temporal reliability decays linearly to 0.0 at 90 days. Cloud reliability uses SCL clear-fraction thresholds (1.0 if ≥ 0.9, proportional if ≥ 0.5, else 0.0).
 - **Missing Data Discipline**: When Sentinel-2 is missing or stale, it receives 0.0 points without weight redistribution and is explicitly documented as an evidence limitation, never as evidence of absence.
 
 ---

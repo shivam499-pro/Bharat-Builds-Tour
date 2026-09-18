@@ -23,27 +23,23 @@ from sklearn.metrics import (
 
 
 def get_data_paths():
-    base_data = Path(r"C:\AWS Hackathon\data\satellite\processed")
-    candidates = [
-        base_data,
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed",
-        Path(__file__).resolve().parent.parent / "data" / "satellite" / "processed",
-        Path("data/satellite/processed"),
-    ]
-    data_dir = None
-    for p in candidates:
-        if (p / "ml_train.parquet").exists():
-            data_dir = p
-            break
+    repo_root = Path(__file__).resolve().parent.parent
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from repo_paths import find_processed_dir_with, require_processed_file
 
+    data_dir = find_processed_dir_with("ml_train.parquet", "ml_validation.parquet", "ml_test.parquet")
     if data_dir is None:
-        raise FileNotFoundError("Could not locate ml_train.parquet in candidate directories.")
+        raise FileNotFoundError(
+            "Could not locate ml_train.parquet / ml_validation.parquet / ml_test.parquet. "
+            "Run create_ml_splits.py first, or set THERMOGUARD_DATA_ROOT."
+        )
 
     return (
         data_dir / "ml_train.parquet",
         data_dir / "ml_validation.parquet",
         data_dir / "ml_test.parquet",
-        data_dir / "firms_satellite_enriched_pilot.parquet",
+        require_processed_file("firms_satellite_enriched_pilot.parquet"),
     )
 
 

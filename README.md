@@ -66,8 +66,10 @@ $$\text{Risk Score} = 100 \times \left[ 0.30 \cdot D_A + 0.25 \cdot D_B + 0.20 \
 4. **Dimension D — Spatial Scale (10%)**:
    - $1.00 \times \frac{\ln(1 + \text{spatial\_extent\_km2})}{\ln(1 + 500)}$ based on convex hull area.
 5. **Dimension E — Spectral / Surface Evidence (15%)**:
-   - $\left[ 0.45 \cdot \text{SWIR}_2\text{ anomaly} + 0.25 \cdot \text{NDVI disturbance} + 0.20 \cdot \frac{\text{SWIR}_2}{\text{SWIR}_1} + 0.10 \cdot \text{BSI} \right] \times \text{SCL}_{\text{clear}} \times e^{-\lambda \cdot \Delta t}$.
-   - Modulated by cloud reliability and temporal decay ($\Delta t > 90\text{ days} \implies 0.0\text{ reliability}$).
+   - $\left[ 0.45 \cdot \text{SWIR}_2\text{ anomaly} + 0.25 \cdot \text{NDVI disturbance} + 0.20 \cdot \frac{\text{SWIR}_2}{\text{SWIR}_1} + 0.10 \cdot \text{BSI} \right] \times \text{spectral\_reliability}$.
+   - `spectral_reliability = temporal_reliability × cloud_reliability`, matching `docs/PhaseIX_RISK_METHODOLOGY.md` Section 9.1 and `risk_engine/dimensions.py`.
+   - Temporal reliability is **linear**: $1 - \Delta t/90$ for $0 < \Delta t < 90$, $0$ if $\Delta t \ge 90$ days (not exponential $e^{-\lambda \Delta t}$).
+   - Cloud reliability: $1.0$ if $SCL_{\text{clear}} \ge 0.9$, $SCL_{\text{clear}}$ if $0.5 \le SCL_{\text{clear}} < 0.9$, else $0.0$.
 
 **Contextual Metadata (0% Direct Risk Weight)**: ESA WorldCover land cover class and OSM facility category/tier (`mine_quarry`, `factory_works`, `brick_kiln`) are preserved strictly for contextual explanation and have **0% direct weight** in the numerical score.
 
@@ -79,7 +81,7 @@ $$\text{Risk Score} = 100 \times \left[ 0.30 \cdot D_A + 0.25 \cdot D_B + 0.20 \
 Evidence Confidence is computed as an **independent 0–100 observational quality indicator**. It reflects:
 - Sentinel-2 cloud clarity ($SCL_{\text{clear}}$),
 - Temporal freshness (temporal delta $\Delta t$ in days),
-- Multi-satellite platform corroboration (`distinct_satellites`: 1 platform = 70%, $\ge 2$ platforms = 100%),
+- Multi-satellite platform corroboration (`distinct_satellites`: `clip(n, 1, 5) / 5`; one platform = 0.20, five platforms = 1.00), as implemented in `risk_engine/confidence.py`,
 - Feature extraction completeness.
 
 > **Critical Invariant**: Evidence Confidence does **NOT** multiply, cap, boost, or alter the numerical Risk Score. High Risk + High Confidence indicates verified active evidence; Low Risk + Low Confidence indicates insufficient data, **NOT** safety.
@@ -212,6 +214,10 @@ To satisfy the AWS First Commit 2026 "Ship It" track requirements, the following
 Bharat-Builds-Tour/
 ├─ .gitignore
 ├─ README.md                                    # This file
+├─ requirements.txt                             # Python dependencies for the risk engine and tests
+├─ repo_paths.py                                # Shared dataset path resolver
+├─ analysis/
+│   └─ baseline_feature_analysis.py             # Phase V pilot feature summary
 ├─ docs/
 │   ├─ PhaseI.md                                # Phase I raw ingestion notes
 │   ├─ PhaseV.md                                # Phase V satellite pilot documentation
@@ -268,15 +274,19 @@ Bharat-Builds-Tour/
 
 ## Getting Started
 
-### 1. Reproducing Phase I–V Feature Analysis
+### 1. Setup
 ```bash
-# Clone the repository and install requirements
-git clone https://github.com/<org>/Bharat-Builds-Tour.git
+git clone https://github.com/shivam499-pro/Bharat-Builds-Tour.git
 cd Bharat-Builds-Tour
 pip install -r requirements.txt
+```
 
-# Run pilot feature-analysis
-python scratch/baseline_feature_analysis.py
+Large FIRMS / OSM / Sentinel parquet files are git-ignored. Place them under `data/satellite/processed/`, or set `THERMOGUARD_DATA_ROOT` to the directory that contains them.
+
+If the Phase V pilot parquet is available:
+
+```bash
+python analysis/baseline_feature_analysis.py
 ```
 
 ### 2. Reproducing Risk Engine, Explainability & Scientific Audits
@@ -290,7 +300,7 @@ python scripts/task27_scientific_audit.py
 # Generate Task 28 deterministic explainability traces and markdown reports
 python scripts/task28_explainability.py
 
-# Run the complete test suite (38 unit and regression tests)
+# Run the unit and regression tests
 python -m unittest discover tests
 ```
 
@@ -307,7 +317,7 @@ All raw and processed large datasets are stored outside Git to keep the reposito
 ---
 
 ## Acknowledgements
-ThermoGuard is developed for the **Smart India Hackathon (SIH 2026)** problem statement **SIH26162** and the **AWS Hackathon** (First Commit 2026). It builds on foundational open‑source geospatial libraries (Rasterio, Shapely, GeoPandas, PyArrow, Pandas, NumPy, Scikit-learn).
+ThermoGuard is maintained by **Shivam** ([shivam499-pro](https://github.com/shivam499-pro)) for the **Smart India Hackathon (SIH 2026)** problem statement **SIH26162** and the **AWS Hackathon** (First Commit 2026). It builds on foundational open‑source geospatial libraries (Rasterio, Shapely, GeoPandas, PyArrow, Pandas, NumPy, Scikit-learn).
 
 ---
 

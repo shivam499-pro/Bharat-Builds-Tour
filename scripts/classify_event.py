@@ -128,37 +128,22 @@ EVIDENCE_DISPLAY_FIELDS = [
 # ---------------------------------------------------------------------------
 
 def resolve_paths():
-    """Resolve data and model directories from standard candidate locations."""
-    base = Path(r"C:\AWS Hackathon")
-    data_candidates = [
-        base / "data" / "satellite" / "processed",
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed",
-        Path("data/satellite/processed"),
-    ]
-    models_candidates = [
-        Path(__file__).resolve().parent.parent / "models",
-        base / "Bharat-Builds-Tour" / "models",
-        Path("models"),
-    ]
+    """Resolve data and model directories from the repo and THERMOGUARD_DATA_ROOT."""
+    repo_root = Path(__file__).resolve().parent.parent
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from repo_paths import find_processed_file, REPO_ROOT
 
-    data_dir = None
-    for p in data_candidates:
-        if (p / "thermoguard_ml_features_pilot.parquet").exists():
-            data_dir = p
-            break
-
-    models_dir = None
-    for p in models_candidates:
-        if (p / "logistic_regression_baseline.joblib").exists():
-            models_dir = p
-            break
-
-    if data_dir is None:
+    features = find_processed_file("thermoguard_ml_features_pilot.parquet")
+    if features is None:
         raise FileNotFoundError(
             "Cannot locate thermoguard_ml_features_pilot.parquet. "
-            "Run build_ml_features.py first."
+            "Run build_ml_features.py first or set THERMOGUARD_DATA_ROOT."
         )
-    if models_dir is None:
+    data_dir = features.parent
+
+    models_dir = REPO_ROOT / "models"
+    if not (models_dir / "logistic_regression_baseline.joblib").exists():
         raise FileNotFoundError(
             "Cannot locate model files under 'models/'. "
             "Run train_baseline_models.py first."

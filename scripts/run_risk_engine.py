@@ -17,6 +17,7 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 if str(REPO_ROOT) not in sys.path:
     sys.path.insert(0, str(REPO_ROOT))
 
+from repo_paths import require_processed_file
 from risk_engine.scoring import score_event, score_dataframe, METHODOLOGY_VERSION
 from risk_engine.explanation import generate_audit_explanation
 from risk_engine.validation import validate_pilot_results, format_validation_report
@@ -25,21 +26,7 @@ def main():
     print(f"=== ThermoGuard Risk Engine Task 25 Execution ===")
     print(f"Methodology Version: {METHODOLOGY_VERSION}")
 
-    # Dataset candidate locations
-    candidates = [
-        Path(r"c:\AWS Hackathon\data\satellite\processed\firms_satellite_enriched_pilot.parquet"),
-        REPO_ROOT.parent / "data" / "satellite" / "processed" / "firms_satellite_enriched_pilot.parquet",
-        Path(r"c:\AWS Hackathon\data\satellite\processed\thermoguard_ml_features_pilot.parquet")
-    ]
-
-    data_path = None
-    for cand in candidates:
-        if cand.exists():
-            data_path = cand
-            break
-
-    if not data_path:
-        raise FileNotFoundError(f"Could not locate pilot dataset in candidates: {candidates}")
+    data_path = require_processed_file("firms_satellite_enriched_pilot.parquet")
 
     print(f"Loading pilot dataset from: {data_path}")
     df_raw = pd.read_parquet(data_path)

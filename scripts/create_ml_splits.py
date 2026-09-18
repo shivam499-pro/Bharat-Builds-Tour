@@ -7,25 +7,17 @@ from sklearn.cluster import KMeans
 
 
 def get_paths():
-    possible_inputs = [
-        Path(r"C:\AWS Hackathon\data\satellite\processed\thermoguard_ml_features_pilot.parquet"),
-        Path(__file__).resolve().parent.parent.parent / "data" / "satellite" / "processed" / "thermoguard_ml_features_pilot.parquet",
-        Path(__file__).resolve().parent.parent / "data" / "satellite" / "processed" / "thermoguard_ml_features_pilot.parquet",
-        Path("data/satellite/processed/thermoguard_ml_features_pilot.parquet"),
-    ]
-    input_path = None
-    for p in possible_inputs:
-        if p.exists():
-            input_path = p
-            break
-    if input_path is None:
-        raise FileNotFoundError("Could not find thermoguard_ml_features_pilot.parquet")
+    import sys
+    repo_root = Path(__file__).resolve().parent.parent
+    if str(repo_root) not in sys.path:
+        sys.path.insert(0, str(repo_root))
+    from repo_paths import require_processed_file
 
+    input_path = require_processed_file("thermoguard_ml_features_pilot.parquet")
     output_dir = input_path.parent
     train_path = output_dir / "ml_train.parquet"
     val_path = output_dir / "ml_validation.parquet"
     test_path = output_dir / "ml_test.parquet"
-
     return input_path, output_dir, train_path, val_path, test_path
 
 
