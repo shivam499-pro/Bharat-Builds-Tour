@@ -304,6 +304,21 @@ python scripts/task28_explainability.py
 python -m unittest discover tests
 ```
 
+### 3. AWS demo — DynamoDB seed (CloudShell)
+
+Console table `ThermoGuardEvents` in `ap-south-1` (partition key `event_id`, String) is empty until this seed runs. CloudShell is already signed in:
+
+```bash
+export AWS_DEFAULT_REGION=ap-south-1
+git clone https://github.com/shivam499-pro/Bharat-Builds-Tour.git
+cd Bharat-Builds-Tour
+python scripts/seed_dynamodb.py
+```
+
+Then DynamoDB → **Explore table items** → **Scan** → **Run**. Expect 100 items (example `EVT_00963466`, risk_score 49).
+
+Read API code lives in `api/handler.py` (Lambda). Table definition for IaC is `infra/dynamodb.yaml`.
+
 ---
 
 ## Data Provenance & Licensing
