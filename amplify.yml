@@ -1,0 +1,12 @@
+version: 1
+frontend:
+  phases:
+    build:
+      commands:
+        - echo "Static ThermoGuard demo UI"
+  artifacts:
+    baseDirectory: frontend
+    files:
+      - "**/*"
+  cache:
+    paths: []

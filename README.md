@@ -319,6 +319,9 @@ Then DynamoDB → **Explore table items** → **Scan** → **Run**. Expect 100 i
 
 Read API code lives in `api/handler.py` (Lambda). Table definition for IaC is `infra/dynamodb.yaml`.
 
+### 4. AWS demo — Amplify frontend
+Static UI is in `frontend/`. Host it with Amplify Hosting (app root uses `amplify.yml`). Paste the Lambda Function URL in the page, then Load events.
+
 ---
 
 ## Data Provenance & Licensing

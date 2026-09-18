@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ThermoGuard — Thermal Event Priority</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <div>
+      <p class="eyebrow">SIH26162 · AWS demo</p>
+      <h1>ThermoGuard</h1>
+      <p class="sub">Investigation priority for satellite thermal events. Not a fire confirmation.</p>
+    </div>
+    <label class="api-box">
+      Lambda Function URL
+      <input id="apiBase" type="url" placeholder="https://xxxx.lambda-url.ap-south-1.on.aws" />
+    </label>
+  </header>
+
+  <section class="toolbar">
+    <button id="loadBtn" type="button">Load events</button>
+    <p id="status">Paste the Function URL, then load.</p>
+  </section>
+
+  <main>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Event</th>
+            <th>Risk</th>
+            <th>Tier</th>
+            <th>Confidence</th>
+            <th>OSM</th>
+            <th>Driver</th>
+          </tr>
+        </thead>
+        <tbody id="rows"></tbody>
+      </table>
+    </div>
+    <aside id="drawer" hidden>
+      <button id="closeDrawer" type="button">Close</button>
+      <div id="detail"></div>
+    </aside>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
